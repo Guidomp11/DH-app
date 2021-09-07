@@ -7,7 +7,7 @@ import MyCamera from '../Components/MyCamera/MyCamera';
 
 import { Camera } from 'expo-camera';
 
-import { db } from '../config/firebase';
+import { db, auth } from '../config/firebase';
 
 export default class CameraScreen extends React.Component{
     constructor(){
@@ -16,7 +16,7 @@ export default class CameraScreen extends React.Component{
             permission: false,
             modal: false,
             url: '',
-            description: ''
+            description: '',
         }
     }
 
@@ -31,12 +31,13 @@ export default class CameraScreen extends React.Component{
 
     submit(description){
         db.collection("gallery").add({
-            name: 'Username',
+            name: auth.currentUser.displayName,
             description,
-            image: this.state.url
+            image: this.state.url,
+            created_at: Date.now()
         })
         .then(() => {
-            this.setState({modal: false});
+            this.setState({modal: false, isLoading: false});
         })
         .catch(e => console.error(e))
     }
@@ -46,7 +47,7 @@ export default class CameraScreen extends React.Component{
 
         return(
             <View style={styles.container}>
-                <MyCamera onImageUpload={(url) => this.onImageUpload(url)} />
+                <MyCamera onImageUpload={(url) => this.onImageUpload(url)}/>
                 {
                     this.state.modal && (
                         <MyModal visible={this.state.modal}>

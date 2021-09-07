@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: 500,
-        backgroundColor: 'red'
+        backgroundColor: 'rgba(0,0,0,0.7)'
     },
     username: {
         fontSize: 24,

@@ -7,7 +7,8 @@ export default class LogIn extends React.Component{
         super();
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            username: ''
         }
     }
 
@@ -15,7 +16,7 @@ export default class LogIn extends React.Component{
         if(this.props.form === 'login') {
             this.props.loggedIn(this.state.email, this.state.password);
         }else{
-            this.props.register(this.state.email, this.state.password);
+            this.props.register(this.state.email, this.state.username, this.state.password);
         }
     }
 
@@ -49,9 +50,20 @@ export default class LogIn extends React.Component{
                         style={styles.input}
                         onChangeText={(text) => this.setState({email: text})}
                     />
+
+                    { this.props.form === 'register' &&
+                        <>
+                            <Text style={styles.text}>Username:</Text>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={(text) => this.setState({username: text})}
+                            />
+                        </>
+                    }
+
                     <Text style={styles.text}>Contraseña:</Text>
                     <TextInput
-                        textContentType={'password'}
+                        secureTextEntry={true}
                         style={styles.input}
                         onChangeText={(text) => this.setState({password: text})}
                     />
@@ -84,7 +96,7 @@ export default class LogIn extends React.Component{
 export const styles = StyleSheet.create({
     form: {
         margin: 25,
-        flex: 10
+        flex: 10,
     },
     text: {
         fontSize: 24

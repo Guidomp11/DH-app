@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import {NavigationContainer} from "@react-navigation/native"
+
 import MyDrawer from './src/Components/Drawer/MyDrawer';
 import AuthForm from './src/screens/AuthForm';
+import MyActivityIndicator from './src/Components/ActivityIndicator/MyActivityIndicator';
 
 import { auth } from './src/config/firebase';
 
@@ -12,6 +13,7 @@ export default class App extends React.Component {
     this.state = {
       form: 'register',
       isLoggedIn: false,
+      isLoading: false,
       error: ''
     }
   }
@@ -21,22 +23,28 @@ export default class App extends React.Component {
   }
 
   loggedIn(email, pass){
+    this.setState({isLoading: true})
     auth.signInWithEmailAndPassword(email, pass)
     .then(() => {
-      this.setState({isLoggedIn: true});
+      this.setState({isLoggedIn: true, isLoading: false});
     })
     .catch(error => {
-      this.setState({isLoggedIn: false, error: 'Credenciales invalidas.'})
+      this.setState({isLoggedIn: false, error: 'Credenciales invalidas.', isLoading: false})
     })
   }
 
-  register(email, pass){
+  register(email, username, pass){
+    this.setState({isLoading: true})
     auth.createUserWithEmailAndPassword(email, pass)
     .then(response => {
-      this.setState({isLoggedIn: true});
+      response.user.updateProfile({
+        displayName: username
+      }).then(() => {
+        this.setState({isLoggedIn: true, isLoading: false});
+      });      
     })
     .catch(error => {
-      this.setState({isLoggedIn: false, error: error})
+      this.setState({isLoggedIn: false, error: error, isLoading: false})
     })
   }
 
@@ -60,13 +68,22 @@ export default class App extends React.Component {
       );
     }else{
       return(
-        <AuthForm 
-          loggedIn={(email, pass) => this.loggedIn(email, pass)} 
-          register={(email, pass) => this.register(email, pass)}
-          form={this.state.form}
-          selectLabel={(label) => this.selectLabel(label)}
-          error={this.state.error}
-        />
+        <>
+          {
+            this.state.isLoading ? 
+              <MyActivityIndicator visible={true}/> 
+            :
+              <AuthForm 
+                loggedIn={(email, pass) => this.loggedIn(email, pass)} 
+                register={(email, username, pass) => this.register(email, username, pass)}
+                form={this.state.form}
+                selectLabel={(label) => this.selectLabel(label)}
+                error={this.state.error}
+              />
+          }
+          
+          
+        </>
       )
     }    
   }  

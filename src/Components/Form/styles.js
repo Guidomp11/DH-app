@@ -27,8 +27,7 @@ export const styles = StyleSheet.create({
         backgroundColor: 'green',
         justifyContent: 'center',
         alignContent: 'center',
-        position: 'absolute',
-        bottom: 10
+        marginTop: 20
     },
     preview: {
         width: 300,
