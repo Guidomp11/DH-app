@@ -21,7 +21,7 @@ export default class AccountScreen extends React.Component{
 
     getPosts(){
         const dbresults = [];
-        db.collection('gallery').get()
+        db.collection('gallery').where('name', '==', this.state.username).get()
         .then(response => {
             response.forEach(result => {
                 dbresults.push(result.data());
