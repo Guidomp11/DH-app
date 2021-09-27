@@ -63,7 +63,7 @@ export default class CameraScreen extends React.Component{
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#f5f5f5',
       alignItems: 'center',
       justifyContent: 'center',
     },

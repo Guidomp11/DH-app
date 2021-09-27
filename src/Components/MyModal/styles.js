@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     modal: {
         width: '90%',
         minHeight: Dimensions.get('window').height - 150,
-        backgroundColor: 'white',
+        backgroundColor: '#2F2F2F',
         alignSelf: 'center',
         borderRadius: 5,
     },

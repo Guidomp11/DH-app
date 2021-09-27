@@ -31,7 +31,9 @@ export default class LogIn extends React.Component{
                       activeOpacity={0.5}
                       onPress={() => this.props.selectLabel('register')}
                     >
-                      <Text style={styles.labels}>Registrarse</Text>
+                      <Text style={
+                        this.props.form === 'register' ? styles.labelsTextAct : styles.labelsTextDeact
+                      }>Registrarse</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                       style={
@@ -40,11 +42,13 @@ export default class LogIn extends React.Component{
                       activeOpacity={0.5}
                       onPress={() => this.props.selectLabel('login')}
                     >
-                      <Text style={styles.labels}>Ingresar</Text>
+                      <Text style={
+                        this.props.form === 'login' ? styles.labelsTextAct : styles.labelsTextDeact
+                      }>Ingresar</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.form}>
-                    <Text style={{marginTop: 30, marginLeft: 30, color: 'red'}}>{this.props.error}</Text>
+                    <Text style={{marginTop: 30, marginLeft: 30, color: '#FF392B'}}>{this.props.error}</Text>
                     <Text style={styles.text}>Email:</Text>
                     <TextInput 
                         style={styles.input}
@@ -67,26 +71,18 @@ export default class LogIn extends React.Component{
                         style={styles.input}
                         onChangeText={(text) => this.setState({password: text})}
                     />
-                    {
-                        this.props.form === 'register' ? (
-                            <TouchableOpacity
-                                style={styles.btnSubmit}
-                                onPress={() => this.onSubmit()}
-                                activeOpacity={0.7}
-                            >
-                                <Text style={styles.btnText}>Registrarse</Text>
-                            </TouchableOpacity>
-                        ) : (
-                            <TouchableOpacity
-                                style={styles.btnSubmit}
-                                onPress={() => this.onSubmit()}
-                                activeOpacity={0.7}
-                            >
-                                <Text style={styles.btnText}>Ingresar</Text>
-                            </TouchableOpacity>
-                        )
-                    }
-                
+                    <TouchableOpacity
+                        style={styles.btnSubmit}
+                        onPress={() => this.onSubmit()}
+                        activeOpacity={0.7}
+                    >
+                        <Text style={styles.btnText}>
+                            {
+                                this.props.form === 'register' ? 'Registrarse' : 'Ingresar'
+                            }
+                        </Text>
+                    </TouchableOpacity>
+                    
                 </View>
             </View>
         )
@@ -117,10 +113,11 @@ export const styles = StyleSheet.create({
     btnSubmit: {
         width: '100%',
         height: 50,
-        backgroundColor: 'green',
+        backgroundColor: '#7F6DF3',
         justifyContent: 'center',
         alignContent: 'center',
-        marginTop: 20
+        marginTop: 20,
+        borderRadius: 10
     },
     preview: {
         width: 300,
@@ -136,23 +133,27 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'flex-end',
         backgroundColor: '#fff'
-      },
-      labels: {
+    },
+    labelsTextAct: {
+      fontSize: 24,
+      textAlign: 'center',
+      color: 'white'
+    },
+    labelsTextDeact: {
         fontSize: 24,
-        textAlign: 'center'
-      },
-      labelBtnDeact: {
-        width: '50%',
-        borderBottomWidth: 2,
-        borderColor: 'black'
-      },
-      labelBtnActive: {
-        width: '50%',
-        borderWidth: 2,
-        borderBottomWidth: 0,
-        borderColor: 'black'
-      },
-      auth: {
-        flex: 10
-      }
+        textAlign: 'center',
+        color: 'black'
+    },
+    labelBtnDeact: {
+      width: '30%',
+      backgroundColor: 'white'        
+    },
+    labelBtnActive: {
+      width: '30%',
+      backgroundColor: '#7F6DF3',
+      borderRadius: 10
+    },
+    auth: {
+      flex: 10,
+    }
 });

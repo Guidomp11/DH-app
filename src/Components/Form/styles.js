@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     btnText: {
         textAlign: 'center',
         fontSize: 24,
-        color: 'white'
+        color: '#2F2F2F'
     },
     input: {
         backgroundColor: '#fafafa',
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     btnSubmit: {
         width: '100%',
         height: 50,
-        backgroundColor: 'green',
+        backgroundColor: '#7F6DF3',
         justifyContent: 'center',
         alignContent: 'center',
         marginTop: 20

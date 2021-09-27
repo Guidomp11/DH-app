@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     text: {
         width: '100%',
         textAlign: 'center',
-        color: 'white',
+        color: '#2F2F2F',
         paddingTop: 15
     },
     preview: {
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
         zIndex: 10,
         width: 100,
         height: 50,
-        backgroundColor: 'green',
+        backgroundColor: '#7F6DF3',
         borderRadius: 50
     },
     reject: {
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
         zIndex: 10,
         width: 100,
         height: 50,
-        backgroundColor: 'red',
+        backgroundColor: '#FF392B',
         borderRadius: 50
     }
 })

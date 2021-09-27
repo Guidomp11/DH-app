@@ -142,24 +142,22 @@ export const styles = StyleSheet.create({
     },
     btnContainer: {
         height: '10%',
-        backgroundColor: 'rgba(0,0,0,0.1)',
+        backgroundColor: '#000020',
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
         width: '100%',
     },
     accept: {
-        
         width: 100,
         height: 50,
-        backgroundColor: 'green',
+        backgroundColor: '#7F6DF3',
         borderRadius: 50
     },
     reject: {
-        
         width: 100,
         height: 50,
-        backgroundColor: 'red',
+        backgroundColor: '#FF392B',
         borderRadius: 50
     }
 })
