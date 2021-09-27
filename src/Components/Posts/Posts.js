@@ -9,7 +9,7 @@ export default function Posts({posts}){
     }
 
     return(
-        <View style={{width: '100%'}}>
+        <View style={{width: '100%', flex: 1}}>
             <FlatList 
                 data={posts}
                 renderItem={renderItem}
