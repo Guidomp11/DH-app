@@ -1,19 +1,42 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, TouchableOpacity } from 'react-native';
 import Post from './Post';
 
-export default function Posts({posts}){
-
+export default function Posts({posts, isOwner=false, deletePhoto=null}){
+    
     const renderItem = ({item}) => {
-        return <Post post={item} />
+        if(isOwner){
+            return(
+                <TouchableOpacity
+                    onLongPress={() => deletePhoto(item.created_at)}
+                    activeOpacity={0.5}
+                >
+                    <Post post={item} />
+                </TouchableOpacity>
+            )
+        }else{
+            return <Post post={item} />
+        }
+    }
+
+    const renderItemForOwner = ({item}) => {
+        console.log(isOwner);
+        return(
+            <TouchableOpacity
+                onLongPress={() => console.log('Eliminar')}
+                activeOpacity={0.5}
+            >
+                <Post post={item} />
+            </TouchableOpacity>
+        )
     }
 
     return(
         <View style={{width: '100%', flex: 1}}>
-            <FlatList 
+            <FlatList
                 data={posts}
                 renderItem={renderItem}
-                keyExtractor={item => item.image}
+                keyExtractor={item => item.created_at}
             />
         </View>
     )
