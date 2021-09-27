@@ -19,18 +19,6 @@ export default function Posts({posts, isOwner=false, deletePhoto=null}){
         }
     }
 
-    const renderItemForOwner = ({item}) => {
-        console.log(isOwner);
-        return(
-            <TouchableOpacity
-                onLongPress={() => console.log('Eliminar')}
-                activeOpacity={0.5}
-            >
-                <Post post={item} />
-            </TouchableOpacity>
-        )
-    }
-
     return(
         <View style={{width: '100%', flex: 1}}>
             <FlatList
