@@ -1,51 +1,21 @@
 import React from 'react';
 import {NavigationContainer} from "@react-navigation/native"
 
-import MyDrawer from './src/Components/Drawer/MyDrawer';
+import MainDrawer from './src/Components/Drawer/MainDrawer';
 import AuthForm from './src/screens/AuthForm';
 import MyActivityIndicator from './src/Components/ActivityIndicator/MyActivityIndicator';
 
 import { auth } from './src/config/firebase';
+import AuthDrawer from './src/Components/Drawer/AuthDrawer';
 
 export default class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      form: 'register',
       isLoggedIn: false,
       isLoading: false,
       error: ''
     }
-  }
-
-  selectLabel(label){
-    this.setState({form: label});
-  }
-
-  loggedIn(email, pass){
-    this.setState({isLoading: true})
-    auth.signInWithEmailAndPassword(email, pass)
-    .then(() => {
-      this.setState({isLoggedIn: true, isLoading: false});
-    })
-    .catch(error => {
-      this.setState({isLoggedIn: false, error: 'Credenciales invalidas.', isLoading: false})
-    })
-  }
-
-  register(email, username, pass){
-    this.setState({isLoading: true})
-    auth.createUserWithEmailAndPassword(email, pass)
-    .then(response => {
-      response.user.updateProfile({
-        displayName: username
-      }).then(() => {
-        this.setState({isLoggedIn: true, isLoading: false});
-      });      
-    })
-    .catch(error => {
-      this.setState({isLoggedIn: false, error: error, isLoading: false})
-    })
   }
 
   componentDidMount(){
@@ -59,14 +29,24 @@ export default class App extends React.Component {
     })
   }
 
+  onUserAuth(value) {
+    this.setState({isLoggedIn: value, isLoading: false});
+  }
+
   render(){
     if(this.state.isLoggedIn) {
       return (
         <NavigationContainer>
-          <MyDrawer />
+          <MainDrawer />
         </NavigationContainer>
       );
     }else{
+      return (
+        <NavigationContainer>
+          <AuthDrawer onUserAuth={(value) => this.onUserAuth(value)} />
+        </NavigationContainer>
+      )
+      /*
       return(
         <>
           {
@@ -84,7 +64,7 @@ export default class App extends React.Component {
           
           
         </>
-      )
+      )*/
     }    
   }  
 }
