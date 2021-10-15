@@ -46,25 +46,6 @@ export default class App extends React.Component {
           <AuthDrawer onUserAuth={(value) => this.onUserAuth(value)} />
         </NavigationContainer>
       )
-      /*
-      return(
-        <>
-          {
-            this.state.isLoading ? 
-              <MyActivityIndicator visible={true}/> 
-            :
-              <AuthForm 
-                loggedIn={(email, pass) => this.loggedIn(email, pass)} 
-                register={(email, username, pass) => this.register(email, username, pass)}
-                form={this.state.form}
-                selectLabel={(label) => this.selectLabel(label)}
-                error={this.state.error}
-              />
-          }
-          
-          
-        </>
-      )*/
     }    
   }  
 }
