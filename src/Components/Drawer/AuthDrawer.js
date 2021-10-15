@@ -1,8 +1,13 @@
 import React from 'react';
+
 import { createDrawerNavigator } from '@react-navigation/drawer';
+
 import { auth } from '../../config/firebase';
+
 import LogIn from '../../screens/LoginScreen';
 import Register from '../../screens/RegisterScreen';
+
+import MyActivityIndicator from '../../Components/ActivityIndicator/MyActivityIndicator';
 
 const Drawer = createDrawerNavigator();
 
@@ -11,7 +16,8 @@ export default class AuthDrawer extends React.Component {
     constructor(){
         super();
         this.state = {
-            error: null
+            error: null,
+            isLoading: false
         }
     }
 
@@ -25,9 +31,9 @@ export default class AuthDrawer extends React.Component {
             this.props.onUserAuth(false);
             this.setState({error: 'Credenciales invalidas.'});
         })
-      }
+    }
 
-      register(email, username, pass){
+    register(email, username, pass){
         this.setState({isLoading: true})
         auth.createUserWithEmailAndPassword(email, pass)
         .then(response => {
@@ -45,12 +51,19 @@ export default class AuthDrawer extends React.Component {
 
     render(){
         return (
-            <Drawer.Navigator>
-                <Drawer.Screen name="Ingresar" component={ () => <LogIn error={this.state.error} loggedIn={(email, pass) => this.loggedIn(email, pass)} />
-                } />
-                <Drawer.Screen name="Registrarse" component={ () => <Register error={this.state.error} register={(email, username, pass) => this.register(email, username, pass)} />
-                } />
-            </Drawer.Navigator>
+            <>
+                {
+                    !this.state.isLoading ? 
+                    <Drawer.Navigator>
+                        <Drawer.Screen name="Ingresar" component={ () => <LogIn error={this.state.error} loggedIn={(email, pass) => this.loggedIn(email, pass)} />
+                        } />
+                        <Drawer.Screen name="Registrarse" component={ () => <Register error={this.state.error} register={(email, username, pass) => this.register(email, username, pass)} />
+                        } />
+                    </Drawer.Navigator> : (
+                        <MyActivityIndicator visible={true}/>
+                    )
+                }
+            </>
         );
     }
 }
