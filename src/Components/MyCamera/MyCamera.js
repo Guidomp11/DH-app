@@ -28,18 +28,8 @@ export default class MyCamera extends React.Component{
     }
 
     uploadImage() {
-        new Promise((resolve, reject) => {
-            let xhr = new XMLHttpRequest();
-            xhr.onerror = reject;
-            xhr.onreadystatechange = () => {
-                if(xhr.readyState === 4) {
-                    resolve(xhr.response);
-                }
-            }
-            xhr.open("GET", this.state.photo);
-            xhr.responseType = 'blob';
-            xhr.send();
-        })
+        fetch(this.state.photo)
+        .then(res => res.blob())
         .then(resolve => {
             const ref = storage.ref(`images/${Date.now()}`)
             ref.put(resolve)
